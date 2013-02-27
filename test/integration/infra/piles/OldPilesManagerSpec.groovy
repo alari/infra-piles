@@ -2,18 +2,20 @@ package infra.piles
 
 import grails.plugin.spock.IntegrationSpec
 import org.apache.commons.lang.RandomStringUtils
+import spock.lang.Ignore
 import spock.lang.Stepwise
 
 @Stepwise
-class PilesManagerSpec extends IntegrationSpec {
+@Ignore
+class OldPilesManagerSpec extends IntegrationSpec {
     PilesManager pilesManager
 
     private PiledItem getNewItem() {
         [id: RandomStringUtils.randomAlphanumeric(5)] as PiledItem
     }
     
-    private SortablePile getNewPile() {
-        [id: RandomStringUtils.randomAlphanumeric(5)] as SortablePile
+    private getNewPile() {
+        //[id: RandomStringUtils.randomAlphanumeric(5)] as SortablePile
     }
     
     void "cannot put null"() {
@@ -25,7 +27,7 @@ class PilesManagerSpec extends IntegrationSpec {
     }
     
     void "filling the pile"() {
-        SortablePile pile = newPile
+        def pile = newPile
         List<PiledItem> items = []
         10.times {items.add(newItem)}
         pilesManager.delete(pile)
@@ -69,7 +71,7 @@ class PilesManagerSpec extends IntegrationSpec {
     }
     
     void "sorting the pile"() {
-        SortablePile pile = newPile
+        def pile = newPile
         List<PiledItem> items = []
         10.times {items.add(newItem)}
         pilesManager.delete(pile)
