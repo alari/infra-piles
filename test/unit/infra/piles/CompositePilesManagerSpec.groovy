@@ -6,9 +6,8 @@ import spock.lang.Specification
 import spock.lang.Stepwise
 
 @Stepwise
-class SortedPilesManagerSpec extends Specification {
-
-    @Shared SortedPilesManager pilesManager = new TestSortedPilesManager()
+class CompositePilesManagerSpec extends Specification {
+    @Shared CompositePilesManager pilesManager = new TestCompositePilesManager()
     @Shared Pile pile = newPile
     @Shared List<PiledItem> items = []
 
@@ -17,6 +16,10 @@ class SortedPilesManagerSpec extends Specification {
     }
 
     void "adding and removing a single element"(){
+        expect:
+        !pilesManager.sizeOf(pile)
+        !pilesManager.getPiles(items[0])
+
         when:
         pilesManager.put(items[0], pile)
 
@@ -120,6 +123,10 @@ class SortedPilesManagerSpec extends Specification {
         then:
         pilesManager.sizeOf(pile) == 1
         pilesManager.getPiles(item)*.id == [pile.id]
+    }
+
+    void "using release"() {
+
     }
 
     private PiledItem getNewItem() {

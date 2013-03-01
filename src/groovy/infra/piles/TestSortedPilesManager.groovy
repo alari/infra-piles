@@ -13,7 +13,7 @@ class TestSortedPilesManager implements SortedPilesManager<TestItem,TestPile> {
     }
 
     @Override
-    void remove(TestItem item, TestPile pile, boolean withTail) {
+    Collection<TestItem> remove(TestItem item, TestPile pile, boolean withTail) {
         if (withTail) {
             int index = pile.sortedItems.indexOf(item)
             if (index >= 0) {
@@ -25,11 +25,13 @@ class TestSortedPilesManager implements SortedPilesManager<TestItem,TestPile> {
                     it.piles.remove(pile)
                     pile.sortedItems.remove(it)
                 }
+                return itemsToRemove
             }
         } else {
             pile.sortedItems.remove(pile)
         }
         item.piles.remove(pile)
+        return [item]
     }
 
     @Override
