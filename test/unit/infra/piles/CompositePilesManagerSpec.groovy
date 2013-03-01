@@ -7,12 +7,14 @@ import spock.lang.Stepwise
 
 @Stepwise
 class CompositePilesManagerSpec extends Specification {
-    @Shared CompositePilesManager pilesManager = new TestCompositePilesManager()
+    @Shared CompositePilesManager pilesManager = new TestCompositePilesManager<TestItem,TestPile>()
     @Shared Pile pile = newPile
     @Shared List<PiledItem> items = []
 
     def setupSpec() {
         10.times {items.add(newItem)}
+        pilesManager.plainManager = new TestHidePilesManager()
+        pilesManager.sortedManager = new TestSortedPilesManager()
     }
 
     void "adding and removing a single element"(){
@@ -38,6 +40,9 @@ class CompositePilesManagerSpec extends Specification {
     }
 
     void "sorting a pair"() {
+        expect:
+        !pilesManager.sizeOf(pile)
+
         when:
         pilesManager.put(items[0], pile)
         pilesManager.put(items[1], pile)
@@ -68,8 +73,9 @@ class CompositePilesManagerSpec extends Specification {
         pilesManager.put(items[1], pile)
 
         then:
-        pilesManager.draw(pile, 0, 0) == items[0..1]
+        pilesManager.sizeOf(pile) == 2
         pilesManager.draw(pile, 1, 0) == items[0..0]
+        pilesManager.draw(pile, 0, 0) == items[0..1]
         pilesManager.sizeOf(pile) == 2
 
         when:
@@ -77,12 +83,13 @@ class CompositePilesManagerSpec extends Specification {
 
         then:
         !pilesManager.inPile(items[0], pile)
-        !pilesManager.inPile(items[1], pile)
-        !pilesManager.sizeOf(pile)
+        pilesManager.inPile(items[1], pile)
+        pilesManager.sizeOf(pile) == 1
     }
 
     void "Sorting a triade"() {
         when:
+        pilesManager.empty(pile)
         items.each {pilesManager.put(it, pile)}
 
         then:

@@ -8,7 +8,7 @@ import java.util.List;
  */
 public interface CompositePilesManager<T extends PiledItem, K extends Pile> extends SortedPilesManager<T,K> {
     SortedPilesManager<T,K> getSortedManager();
-    HidePilesManager<T,K> getPlainManager();
+    PilesManager<T,K> getPlainManager();
 
     public void release(T item, K pile, boolean withTail);
 

@@ -20,11 +20,13 @@ class HidePilesManagerSpec extends Specification {
         pilesManager.draw(pile, 0, 0) == [items[0]]
         pilesManager.getPiles(items[0])*.id == [pile.id]
         !pilesManager.isHidden(items[0], pile)
+        pilesManager.sizeOf(pile) == 1
 
         when:
         pilesManager.hide(items[0], pile)
 
         then:
+        pilesManager.sizeOf(pile) == 0
         pilesManager.inPile(items[0], pile)
         pilesManager.draw(pile, 0, 0) == []
         pilesManager.getPiles(items[0])*.id == [pile.id]

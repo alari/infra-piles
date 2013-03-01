@@ -29,7 +29,14 @@ class TestHidePilesManager extends TestPilesManager implements HidePilesManager<
         item.piles.toList() + item.hidden.toList()
     }
 
+    @Override
     boolean inPile(TestItem item, TestPile pile) {
         item.piles.contains(pile) || item.hidden.contains(pile)
+    }
+
+    @Override
+    void remove(TestItem item, TestPile pile) {
+        super.remove(item, pile)
+        item.hidden.remove(pile)
     }
 }

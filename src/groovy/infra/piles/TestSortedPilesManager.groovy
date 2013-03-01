@@ -9,7 +9,7 @@ class TestSortedPilesManager implements SortedPilesManager<TestItem,TestPile> {
     void put(TestItem item, TestPile pile, int position) {
         pile.sortedItems.remove(item)
         position <= pile.sortedItems.size() ? pile.sortedItems.add(position, item) : pile.sortedItems.add(item)
-        item.piles.add(pile)
+        item.sorted.add(pile)
     }
 
     @Override
@@ -22,7 +22,7 @@ class TestSortedPilesManager implements SortedPilesManager<TestItem,TestPile> {
                     itemsToRemove.add pile.sortedItems[i]
                 }
                 itemsToRemove.each {
-                    it.piles.remove(pile)
+                    it.sorted.remove(pile)
                     pile.sortedItems.remove(it)
                 }
                 return itemsToRemove
@@ -30,8 +30,16 @@ class TestSortedPilesManager implements SortedPilesManager<TestItem,TestPile> {
         } else {
             pile.sortedItems.remove(pile)
         }
-        item.piles.remove(pile)
+        item.sorted.remove(pile)
         return [item]
+    }
+
+    @Override
+    void empty(TestPile pile) {
+        pile.sortedItems.each {
+            it.sorted.remove(pile)
+        }
+        pile.sortedItems = []
     }
 
     @Override
@@ -39,28 +47,30 @@ class TestSortedPilesManager implements SortedPilesManager<TestItem,TestPile> {
         assert item
         assert pile
         if (!pile.sortedItems.contains(item)) pile.sortedItems.add(item)
-        assert item.piles != null
-        item.piles.add(pile)
+        assert item.sorted != null
+        item.sorted.add(pile)
     }
 
     @Override
     void remove(TestItem item, TestPile pile) {
         pile.sortedItems.remove(item)
-        item.piles.remove(pile)
+        item.sorted.remove(pile)
     }
 
     @Override
     List<TestItem> draw(TestPile pile, long limit, long offset) {
+        List<TestItem> items = []
         if (limit) {
-            pile.sortedItems.subList((int)offset, Math.min((int)offset+limit, pile.sortedItems.size()))
+            items.addAll pile.sortedItems.subList((int)offset, Math.min((int)offset+limit, pile.sortedItems.size()))
         } else {
-            pile.sortedItems
+            items.addAll pile.sortedItems
         }
+        items
     }
 
     @Override
     Collection<TestPile> getPiles(TestItem item) {
-        item.piles
+        item.sorted
     }
 
     @Override

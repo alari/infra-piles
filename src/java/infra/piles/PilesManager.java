@@ -16,6 +16,8 @@ public interface PilesManager<T extends PiledItem, K extends Pile> {
 
     public void remove(T item, K pile);
 
+    public void empty(K pile);
+
     public List<T> draw(K pile, long limit, long offset);
 
     public Collection<K> getPiles(T item);

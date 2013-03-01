@@ -23,12 +23,22 @@ class TestPilesManager implements PilesManager<TestItem,TestPile> {
     }
 
     @Override
-    List<TestItem> draw(TestPile pile, long limit, long offset) {
-        if (limit) {
-            pile.plainItems.subList((int)offset, Math.min((int)offset+limit, pile.plainItems.size()))
-        } else {
-            pile.plainItems
+    void empty(TestPile pile) {
+        pile.plainItems.each {
+            it.piles.remove(pile)
         }
+        pile.plainItems = []
+    }
+
+    @Override
+    List<TestItem> draw(TestPile pile, long limit, long offset) {
+        List<TestItem> items = []
+        if (limit) {
+            items.addAll pile.plainItems.subList((int)offset, Math.min((int)offset+limit, pile.plainItems.size()))
+        } else {
+            items.addAll pile.plainItems
+        }
+        items
     }
 
     @Override
