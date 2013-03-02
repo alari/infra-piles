@@ -37,6 +37,8 @@ grails.project.dependency.resolution = {
             export = false
         }
 
+        compile ":mongodb:1.1.0.GA"
+
         test(":spock:0.7") {
             exclude "spock-grails-support"
             export = false

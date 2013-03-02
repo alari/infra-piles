@@ -18,8 +18,8 @@ class PilesManagerSpec extends Specification {
     }
 
     void "filling the pile"() {
-        Pile pile = newPile
-        Pile pile2 = newPile
+        SortablePile pile = newPile
+        SortablePile pile2 = newPile
         List<PiledItem> items = []
         2.times {items.add newItem}
 
@@ -70,7 +70,7 @@ class PilesManagerSpec extends Specification {
         new TestItem(id: RandomStringUtils.randomAlphanumeric(5))
     }
 
-    private Pile getNewPile() {
+    private SortablePile getNewPile() {
         new TestPile(id: RandomStringUtils.randomAlphanumeric(5))
     }
 }

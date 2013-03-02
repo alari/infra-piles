@@ -11,7 +11,7 @@ import java.util.List;
  * @author alari
  * @since 7/15/12 11:36 PM
  */
-public interface PilesManager<T extends PiledItem, K extends Pile> {
+public interface PilesManager<T extends PiledItem, K extends SortablePile> {
     public void put(T item, K pile);
 
     public void remove(T item, K pile);

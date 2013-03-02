@@ -8,7 +8,7 @@ import spock.lang.Stepwise
 @Stepwise
 class CompositePilesManagerSpec extends Specification {
     @Shared CompositePilesManager pilesManager = new TestCompositePilesManager<TestItem,TestPile>()
-    @Shared Pile pile = newPile
+    @Shared SortablePile pile = newPile
     @Shared List<PiledItem> items = []
 
     def setupSpec() {
@@ -140,7 +140,7 @@ class CompositePilesManagerSpec extends Specification {
         new TestItem(id: RandomStringUtils.randomAlphanumeric(5))
     }
 
-    private Pile getNewPile() {
+    private SortablePile getNewPile() {
         new TestPile(id: RandomStringUtils.randomAlphanumeric(5))
     }
 }

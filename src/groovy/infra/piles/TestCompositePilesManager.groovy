@@ -4,7 +4,7 @@ package infra.piles
  * @author alari
  * @since 2/28/13 12:34 AM
  */
-class TestCompositePilesManager<T extends PiledItem,K extends Pile> implements CompositePilesManager<T,K> {
+class TestCompositePilesManager<T extends PiledItem,K extends SortablePile> implements CompositePilesManager<T,K> {
     SortedPilesManager<T, K> sortedManager
     PilesManager<T,K> plainManager
 

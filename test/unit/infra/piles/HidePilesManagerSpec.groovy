@@ -8,7 +8,7 @@ class HidePilesManagerSpec extends Specification {
     @Shared HidePilesManager pilesManager = new TestHidePilesManager()
 
     void "can hide and reveal"() {
-        Pile pile = newPile
+        SortablePile pile = newPile
         List<PiledItem> items = []
         10.times {items.add(newItem)}
 
@@ -46,7 +46,7 @@ class HidePilesManagerSpec extends Specification {
         new TestItem(id: RandomStringUtils.randomAlphanumeric(5))
     }
 
-    private Pile getNewPile() {
+    private SortablePile getNewPile() {
         new TestPile(id: RandomStringUtils.randomAlphanumeric(5))
     }
 }
