@@ -37,7 +37,8 @@ grails.project.dependency.resolution = {
             export = false
         }
 
-        compile ":mongodb:1.1.0.GA"
+        compile ":mongodb:1.2.0"
+        compile ":infra-chains:0.1-SNAPSHOT"
 
         test(":spock:0.7") {
             exclude "spock-grails-support"

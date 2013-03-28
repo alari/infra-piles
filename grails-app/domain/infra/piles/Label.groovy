@@ -1,11 +1,13 @@
 package infra.piles
 
-class Tag {
+class Label implements Pile<Entry> {
 
     String id
     String title
 
-    static hasOne = [pile:Pile]
+    Entry item
+
+    static hasOne = [item:Entry]
 
     static constraints = {
     }
